@@ -1,5 +1,7 @@
 ## Electron
 
+[electron官网]: https://www.electronjs.org/zh/docs/latest/
+
 ### 基础
 
 #### 主进程
@@ -9,6 +11,25 @@
 ​	创建并控制浏览器窗口。其实例针对的是窗口
 
 - **closed**
+
+```js
+let win = new BrowserWindow({
+    x: 1920,  //窗口相对于主屏幕原点位置
+    y: 0,
+    fullscreen: true, //是否全面屏， width和height就可以忽略
+    width: 800,
+    height: 600,
+    //show: false, //默认情况下创建一个窗口对象之后就会显示。
+    title: "智慧驾驶",
+    webPreferences: { //网页功能设置
+        //nodeIntegration: true, //开启 node.js 环境集成
+        //contextIsolation: false, //关闭上下文隔离
+        //enableRemoteModule: true, //暴露remote模块
+
+        preload: path.join(__dirname, 'preload.js'),
+    }
+})
+```
 
 ##### app
 
@@ -26,8 +47,6 @@
 - **dom-ready** ： 当顶级 frame 的 document 被加载完时触发。
 
 - **did-create-window** ：在渲染进程中由 `window.open` 成功创建窗口*之后* 触发。
-
-
 
 #### 进程间的通信
 
@@ -50,11 +69,32 @@ ipcRenderer.send()
 ipcRenderer.invoke() 
 ```
 
-
-
 ##### 渲染进程到主进程（单向）
 
 使用 [`ipcRenderer.send`](https://www.electronjs.org/zh/docs/latest/api/ipc-renderer) API 发送消息，然后使用 [`ipcMain.on`](https://www.electronjs.org/zh/docs/latest/api/ipc-main) API 接收。
+
+
+
+#### 预加载
+
+- 运行于渲染进程中，可以访问Node.js的部分API
+- 与浏览器共享同一个全局 [`Window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) 接口，使用 [`contextBridge`](https://www.electronjs.org/zh/docs/latest/api/context-bridge) 模块来安全地实现交互
+
+**preload.js**
+
+```js
+//预加载文件，渲染进程之前执行
+const { contextBridge, ipcRenderer } = require('electron')
+
+//通过contextBridge暴露的api，渲染进程就可以通过window访问到
+contextBridge.exposeInMainWorld('electronApi', {
+  // 能暴露的不仅仅是函数，我们还可以暴露变量
+  /* node: () => process.versions.node,
+  chrome: () => process.versions.chrome,
+  electron: () => process.versions.electron, */
+  openWindow: (url) => { ipcRenderer.send('open-window', url) }
+})
+```
 
 
 
