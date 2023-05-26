@@ -73,8 +73,6 @@ ipcRenderer.invoke()
 
 使用 [`ipcRenderer.send`](https://www.electronjs.org/zh/docs/latest/api/ipc-renderer) API 发送消息，然后使用 [`ipcMain.on`](https://www.electronjs.org/zh/docs/latest/api/ipc-main) API 接收。
 
-
-
 #### 预加载
 
 - 运行于渲染进程中，可以访问Node.js的部分API
@@ -96,7 +94,9 @@ contextBridge.exposeInMainWorld('electronApi', {
 })
 ```
 
+#### 父窗口与模态窗口
 
+#### 自定义菜单
 
 ### 搭建桌面应用
 

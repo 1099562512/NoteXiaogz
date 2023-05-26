@@ -223,3 +223,76 @@ declare module "*.vue" {
 
 ### 按需引入Echarts
 
+### Svg
+
+[README.zh_CN.md · main · mirrors / vbenjs / vite-plugin-svg-icons · GitCode](https://gitcode.net/mirrors/vbenjs/vite-plugin-svg-icons/-/blob/main/README.zh_CN.md)
+
+```
+yarn add vite-plugin-svg-icons -D
+```
+
+```js
+// vite.config.js
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    Components({
+      resolvers: [ AntDesignVueResolver() ]
+    }),
+    createSvgIconsPlugin({
+      iconDirs: [resolve(process.cwd(), 'src/assets/svg')]
+    })
+  ],
+  ...
+})
+```
+
+在 src/main.js 内引入注册脚本
+
+```
+//main.js 引入
+import 'virtual:svg-icons-register'
+```
+
+封装公共组件SvgIcon，`/src/components/SvgIcon.vue`
+
+```vue
+<template>
+  <svg aria-hidden="true" class="svg-icon">
+    <use :xlink:href="symbolId" :fill="color" />
+  </svg>
+</template>
+
+<script setup>
+  import { computed } from 'vue'
+  const props = defineProps({
+    prefix: {
+      type: String,
+      default: 'icon',
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    color: {  //需要注意的是，如果要color生效，需要将svg文件内的fill删除
+      type: String,
+      default: '#333',
+    }
+  })
+
+  const symbolId = computed(() => `#${props.prefix}-${props.name}`)
+</script>
+
+<style scoped>
+  .svg-icon {
+    width: 100%;
+    height: 100%;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+</style>
+```
+
