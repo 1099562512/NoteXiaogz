@@ -160,34 +160,39 @@ electron-builder.json
 
 ```json
 {
-    appId: "lethe.com",
-    productName: "my-project", // 项目名，也是生成的安装文件名，即wyDemo.exe
-    copyright: "lethe Copyright © 2022", // 版权信息
-    files: ["./main.js", "./dist"]
-    extraFiles: [
-      // 把指定的资源复制到程序根目录，即把server文件夹的内容复制到程序根目录，这里server文件夹下的内容相当于我的后台，我在background.js中有相应的处理。
-      "./server",
+    "appId": "remotecockpit.com",
+    "productName": "智能驾驶舱", //项目名, 也是生成的安装文件名，即智能驾驶舱.exe
+    "copyright": "zjzk Copyright © 2023",
+    "files": [   //需要打包的文件
+        "./electron", //mian.js preload.js文件
+        "./dist", //前端打包的项目
+        "./build/**/*"
     ],
-    directories: {
-      output: "dists", // 输出文件路径
+    "extraFiles": [
+        "./server"
+    ],
+    "directories": {
+        "output": "dists"  //输出文件路径
     },
-    win: {
-      // win相关配置
-      // icon: "./favicon.ico", // 图标，当前图标在根目录下，注意这里有两个坑
-      requestedExecutionLevel: "requireAdministrator", //获取管理员权限
-      target: ["nsis", "zip"], // 利用nsis制作安装程序
+    "win": {
+        "requestedExecutionLevel": "requireAdministrator",
+        "target": [
+            "nsis",
+            "zip"
+        ]
     },
-    nsis: {
-      oneClick: false, // 是否一键安装
-      allowElevation: true, // 允许请求提升。 如果为false，则用户必须使用提升的权限重新启动安装程序。
-      allowToChangeInstallationDirectory: true, // 允许修改安装目录
-      // installerIcon: "./favicon.ico", // 安装图标
-      // uninstallerIcon: "./favicon.ico", // 卸载图标
-      // installerHeaderIcon: "./favicon.ico", // 安装时头部图标
-      createDesktopShortcut: true, // 创建桌面图标
-      createStartMenuShortcut: true, // 创建开始菜单图标
-      shortcutName: "leDom", // 图标名称(项目名称)
-    },
+    "mac":{},
+    "linux": {},
+    "nsis": {
+        "oneClick": false, //是否一键安装
+        "allowElevation": true, //允许请求提升。如果false，则用户必须使用提升的权限重新启动安装程序
+        "allowToChangeInstallationDirectory": true, //允许修改安装目录
+        "installerIcon": "./build/icons/aaa.ico", //安装图标
+        "uninstallerIcon": "", //卸载图标
+        "createDesktopShortcut": true, //创建桌面图标
+        "createStartMenuShortcut": true, //创建开始菜单图标
+        "shortcutName": "远程驾驶舱" //图标名称
+    }
 }
 ```
 
@@ -199,3 +204,14 @@ export default defineConfig({
   base: './' //改为相对路径
 })
 ```
+
+vue.config.js
+
+​	路由系统改为"hash"模式。
+
+```js
+{
+    publicPath: "./"
+}
+```
+
