@@ -121,3 +121,22 @@ routers.forEach( route => {
 - 不占据V8堆内存大小的内存空间
 - 内存的使用由Node控制，由V8的GC回收
 - 一般配合Stream流使用，充当数据缓冲区
+
+### path
+
+- `join`
+
+### module scope
+
+- `__dirname`:	当前模块的文件夹名称。
+- `__filename`： 当前模块的文件名称---解析后的绝对路径。
+
+在 `/Users/mjr` 目录下执行 `node example.js`
+
+```js
+console.log(__filename);
+// Prints: /Users/mjr/example.js
+console.log(__dirname);
+// Prints: /Users/mjr
+```
+
