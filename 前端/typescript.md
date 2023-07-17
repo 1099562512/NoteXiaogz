@@ -1,22 +1,36 @@
 # TypeScript
 
+[Typescript - 基本类型 | Basic Types - Basic Types - 开发者手册 - 腾讯云开发者社区-腾讯云 (tencent.com)](https://cloud.tencent.com/developer/section/1475969)
+
 ## 基础类型
 
 - **any**
 
-   		声明为 any 的变量可以赋予任意类型的值。  变量的值会动态改变时，比如来自用户的输入，任意值类型可以让这些变量跳过编译阶段的类型检查 
+   	声明为 any 的变量可以赋予任意类型的值。  变量的值会动态改变时，比如来自用户的输入，任意值类型可以让这些变量跳过编译阶段的类型检查 
 
 - **unknown**
 
    不确定变量类型。
 
-    unknown和any都是TS中的顶级类型，但主要区别在于：使用any相当于彻底放弃了类型检查，而unknown类型相较于any更加严格，在执行大多数操作之前，**会进行某种形式的检查**。
+    unknown和any都是TS中的顶级类型，但主要区别在于：使用any相当于彻底放弃了类型检查，而unknown类型相较于any更加严格，在执行大多数操作之前，**会进行某种形式的检查**。**同时unknown类型的值也不能赋值给any和unknown以外的类型变量**  
 
-    **同时unknown类型的值也不能赋值给any和unknown以外的类型变量**  
+   ```tsx
+   let foo: any = 123;
+   console.log(foo.msg); // 符合TS的语法
+   let a_value1: unknown = foo;   // OK
+   let a_value2: any = foo;      // OK
+   let a_value3: string = foo;   // OK
+   
+   let bar: unknown = 222; // OK 
+   console.log(bar.msg); // Error
+   let k_value1: unknown = bar;   // OK
+   let K_value2: any = bar;      // OK
+   let K_value3: string = bar;   // Error
+   ```
 
 - **number**
 
-   双精度 64 位浮点值。它可以用来表示整数和分数。 
+   双精度 64 位浮点值。它可以用来表示整数和分数。 除了十六进制和十进制外，还支持二进制和八进制文字。
 
 - **string**
 
@@ -57,9 +71,16 @@
   console.log(Color[c]); //Black
   ```
 
+  枚举的一个方便功能是，您也可以从数值转到枚举中该值的名称。
+
+  ```ts
+  enum Week {MonDay = 1, TuesDay = 2, Wednesday = 3}
+  console.log(Week[1]); //MonDay
+  ```
+
 - **viod**
 
-   用于标识方法返回值的类型，表示该方法没有返回值。 
+   用于标识方法返回值的类型，表示该方法没有返回值。 声明类型的变量`void`是没有用的，因为你只能分配`undefined`或`null`
 
 - **null**
 
@@ -70,6 +91,16 @@
 - **never**
 
    `never` 类型表示的是那些永不存在的值的类型 ，是所有基础类型子类型， 可以赋值给任意类型。但是没有类型是 never 类型的子类型，即使是 any 类型也不能赋值给 never 类型 
+
+- **类型断言**
+
+​		TypeScript中的类型断言是一种将变量或表达式的类型强制转换为开发者指定的类型的方式。类型断言有两种方式，分别是使用尖括号（<>）语法和as语法	
+
+```tsx
+let str: any = "hello";
+let len1: number = (<string>str).length;
+let len2: number= (str as string).length
+```
 
 - **obejct**
 
@@ -101,10 +132,20 @@ var [变量名] : [类型] = 值;
 var [变量名] : [类型];
 ```
 
- 声明变量并初始值，但不设置类型，该变量可以是任意类型
+ 声明变量并初始值，但不设置类型，该变量可以是任意类型。但是ts有类型推断
 
 ```
 var [变量名] = 值;
+```
+
+### 类型推断
+
+​	TypeScript 的类型推断是一种自动推断变量类型的能力，它可以在变量声明时根据初始值或上下文环境来确定其类型。
+
+```ts
+const myNumber = 123; // 初始值为数字，因此变量的类型为 number
+const myString = 'hello'; // 初始值为字符串，因此变量的类型为 string
+let a : number = myString //会报错误，不能将string类型的值赋给number类型的
 ```
 
 ## 联合类型
@@ -115,7 +156,10 @@ var [变量名] = 值;
 var val : string | number 
 
 //联合类型数组
-var arr : number[] | string[]; 
+type StrOrNumArray = Array<string | number>
+
+let a : StrOrNumArray = ["123",123]
+console.log(a);
 ```
 
 ## 函数
@@ -160,9 +204,7 @@ function add(x: number, y: number) : number {
   }
   
   addAll(1,2,3,4,5)
-  
   ```
-
   
 
 ### 重载
@@ -222,8 +264,6 @@ let mySearch: SearchFun = (src: string, sub: string) : boolean => {
 
 console.log(mySearch('asdadhjl', 'a')); //true
 ```
-
-
 
 ## 泛型
 
@@ -354,3 +394,50 @@ console.log(a._name);
 
 ### 抽象类
 
+
+
+## tsconfig.json
+
+​	在vite.config.ts设置路径别名后，需要在tsconfig.json设置paths,不然会提示找不到模块或相关类型
+
+```json
+{
+  /* 此属性指明了 ts 在编译时遵循的规则，这个属性也可以不指定，ts 会使用默认的配置进行编译。 */
+  "compilerOptions": {
+    "target": "ES2020", //指定ECMAScript目标版本
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"], //TS需要引用的库
+    "skipLibCheck": true,
+
+    "allowJs": true, //是否允许编译js文件
+
+    /* paths 可以允许你声明 TypeScript 应该如何解析你的 require/import */
+    "baseUrl": ".",
+    "types": ["vite/client"],
+    "paths": {
+      "@/*": ["src/*"],
+      "#/*": ["types/*"]
+    },
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  /* 指定需要编译的文件列表 */
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  /* 排除的文件 */
+  "exclude": [],
+  /* 指定工程引用依赖 */
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+```

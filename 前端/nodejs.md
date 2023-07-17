@@ -74,6 +74,37 @@
 
 其实，`Nodejs`能实现几乎一切的应用，只考虑适不适合使用它
 
+### 模块（Modules）
+
+​	采用的是CommonJs规范。
+
+- 原生模块就是node自带的，如http、fs、path等。
+- 文件模块就是你自己创建的。
+
+![](D:\code\NodeXiaogz\前端\img\nodejs\nodejs-require.jpg)
+
+**exports 和 module.exports 的使用**
+
+如果要对外暴露属性或方法，就用 **exports** 就行，要暴露对象(类似class，包含了很多属性和方法)，就用 **module.exports**。
+
+```js
+exports.world = function() {
+  console.log('Hello World');
+}
+
+//hello.js 
+function Hello() { 
+    var name; 
+    this.setName = function(thyName) { 
+        name = thyName; 
+    }; 
+    this.sayHello = function() { 
+        console.log('Hello ' + name); 
+    }; 
+}; 
+module.exports = Hello;
+```
+
 ### HTTP模块
 
 ### Process

@@ -304,8 +304,11 @@ let win = new BrowserWindow({
 
 - getAllDisplays 获取所有屏幕信息
 
+​	根据bounds的（x,y）判断位置，原点以左上角为基准。x：正为右，负为左。y：正为下，负为上
+
 ```js
- {
+[
+   {
      id: 2779098405,
      label: '',
      bounds: { x: 0, y: 0, width: 1920, height: 1080 },
@@ -486,3 +489,12 @@ contextBridge.exposeInMainWorld('electronApi', {
 #### 父窗口与模态窗口
 
 #### 自定义菜单
+
+
+
+### 拓展屏
+
+1. 检测目前有多少连接的拓展屏，并判断方向，存起来
+2. 进入主屏幕后，判断对不同方向的屏幕播放车载摄像头监控并自动弹出
+3. 当发生前进后退档位切换时，切换播放地址
+

@@ -199,6 +199,7 @@ export default {
 
 ```
 npm install @types/node --save-dev
+或
 yarn add @types/node -D
 ```
 
