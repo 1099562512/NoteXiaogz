@@ -1,8 +1,10 @@
-### Three
+### ThreeJS
 
-#### Sence（场景）
+#### 场景（Sence）
 
-#### Camera（相机）
+
+
+#### 相机（Camera）
 
 ##### 透视相机 (PerspectiveCamera )
 
@@ -84,9 +86,23 @@ scene.add(mesh) //网格模型添加到场景中
 
 ```
 
-
-
 #### 渲染器（Renderer）
+
+​	渲染器renderer的domElement元素，表示渲染器中的画布，所有的渲染都是画在domElement上的。
+
+```js
+//创建渲染器
+const renderer = new WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight); //设置渲染尺寸大小
+//将canvas挂载到dom下
+threeRef.value?.appendChild(renderer.domElement)
+
+renderer.render(scene, camera)
+```
+
+##### 方法
+
+- render( scene : [Object3D](http://www.yanhuangxueyuan.com/threejs/docs/index.html#api/zh/core/Object3D), camera : [Camera](http://www.yanhuangxueyuan.com/threejs/docs/index.html#api/zh/cameras/Camera))
 
 #### 几何体
 

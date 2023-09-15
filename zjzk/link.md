@@ -1,3 +1,5 @@
+## 方舟平台
+
 在线文档地址（必要）：http://172.22.24.51:4999/web/#/6/39
 前端在线文档地址（必要）：http://172.22.26.239:81/
 
@@ -5,6 +7,14 @@ maven仓库（必要）：http://172.22.26.230:8081/
 前端npm仓库（必要）：http://172.22.26.230:4873/
 
 即时设计： https://js.design/v?i=M5COxl&p=FaEmjRfxQo&f=2C6Xj7r9who37X5Gtq9pG
+
+## GitLab
+
+http://150.158.176.73/
+
+1099562512@qq.com
+
+109956@xgz
 
 ## VPN账号
 
@@ -29,6 +39,8 @@ http://mail.zjky.cn/
 密码：109956Xgz
 
 ## 统一身份认证平台、OA
+
+新OA： https://oa.zjky.cn/
 
 在PC端网页中输入IAM地址：https://iam.zijinmining.com/login/
 
@@ -74,6 +86,8 @@ uni-admin： zjark  Zjzk123456@
 
 uni-app打包:	
 
+安装包名： IntelligentDump.apk
+
 | 证书     | 值            |
 | -------- | ------------- |
 | 证书名   | dump          |
@@ -102,7 +116,21 @@ https://zjauto.cn服务器连接
 密码:Zjzk,123456789
 ```
 
-#### 统一发布页
+### 统一发布页
 
 [Android统一发布页]: https://zjauto.cn/app/index.html
 
+PC端：http://81.68.127.3:8800/
+
+## 排土场服务器
+
+120.48.66.132
+
+81.68.127.3
+
+| 账号      | 密码          |
+| --------- | ------------- |
+| admin     | zjzkAdmin,123 |
+| dumpAdmin | dumpAdmin,123 |
+
+https://autobots.streamax.com/
