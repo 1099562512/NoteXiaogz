@@ -134,3 +134,7 @@ PC端：http://81.68.127.3:8800/
 | dumpAdmin | dumpAdmin,123 |
 
 https://autobots.streamax.com/
+
+| 账号      | 密码       |
+| --------- | ---------- |
+| zjzkadmin | Zjzk!@#123 |
