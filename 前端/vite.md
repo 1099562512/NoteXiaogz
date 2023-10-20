@@ -224,6 +224,40 @@ declare module "*.vue" {
 
 ### 按需引入Echarts
 
+### Iconify
+
+[Iconify + Vue3文档地址](https://iconify.design/docs/icon-components/vue/)
+
+安装
+
+```
+npm install --save-dev @iconify/vue
+
+yarn add --dev @iconify/vue
+```
+
+引入
+
+```vue
+<Icon icon="mdi-light:home" :width="16" :height="16" />
+
+import{ Icon }from'@iconify/vue';
+```
+
+```
+icon： 这是你希望显示的图标的名称或直接提供的图标数据。 格式： @api-provider：icon-prefix：icon-name
+	   api-provider: api源，如果为空就是公共api
+	   prefix: icon图解到名字
+	   name: icon名字
+inline： 这个布尔值可以改变图标的垂直对齐方式。默认情况下，图标是块级元素，这个属性可以将图标变为行内元素。
+width 和 height：这两个属性可以设定图标的宽度和高度。可以是字符串（比如 '100px'）或者数字（比如 100）。
+hFlip 和 vFlip：这两个布尔值可以分别让图标水平翻转和垂直翻转。
+flip：  这个字符串属性可以作为 hFlip 和 vFlip 的替代，指定一个方向进行翻转。比如 'horizontal' 相当于设置 hFlip: true。
+rotate：这个数值或字符串属性可以旋转图标。数值表示旋转的度数，字符串 '90'、'180'、'270' 等表示旋转特定的角度。
+color：这个字符串属性可以改变图标的颜色。
+onLoad：这是一个函数，当图标数据加载完毕时会被调用。你可以在这个函数中执行一些需要在图标数据加载完成后才能进行的操作，比如动画等。
+```
+
 ### Svg
 
 [README.zh_CN.md · main · mirrors / vbenjs / vite-plugin-svg-icons · GitCode](https://gitcode.net/mirrors/vbenjs/vite-plugin-svg-icons/-/blob/main/README.zh_CN.md)
@@ -297,3 +331,4 @@ import 'virtual:svg-icons-register'
 </style>
 ```
 
+### unplugin-vue-setup-extend-plus
