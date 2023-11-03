@@ -104,6 +104,8 @@ vite-plugin-compression插件
 vue的路由动态导入
 
 
+
+
 ## CDN加速
 
 我们所有的依赖以及文件在我们进行打包后会放到我们的服务器上
@@ -257,6 +259,37 @@ rotate：这个数值或字符串属性可以旋转图标。数值表示旋转�
 color：这个字符串属性可以改变图标的颜色。
 onLoad：这是一个函数，当图标数据加载完毕时会被调用。你可以在这个函数中执行一些需要在图标数据加载完成后才能进行的操作，比如动画等。
 ```
+
+### Unocss
+
+[Unocss(原子化css) 使用及vue3 + vite + ts讲解_vue.js_脚本之家 (jb51.net)](https://www.jb51.net/article/266660.htm)
+
+安装
+
+```
+yarn add unocss -D
+```
+
+vite.config.ts 
+
+```ts
+import { resolve } from 'path'
+import { presetTypography, presetUno } from 'unocss'
+
+...
+plugins: [vue(), UnoCss({
+	presets: [presetUno(), presetTypography()]
+})]
+...
+```
+
+main.ts导入unocss
+
+```
+import 'unocss'
+```
+
+[样式查询地址](https://uno.antfu.me/)
 
 ### Svg
 
