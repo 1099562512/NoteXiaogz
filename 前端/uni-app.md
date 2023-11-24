@@ -141,4 +141,16 @@
 
   对比，npm模式，增加  `./uni_modules/` ，少去第5步。
 
+#### uni-ui
 
+- uni-modules，即从uni-app的插件市场导入
+
+  在Hbuilder创建项目时，直接选择uni-ui当模板。此时项目会多了uni-modules将uni-ui所有的组件都导入。
+
+  由于uni-app独特的[easycom](https://uniapp.dcloud.io/collocation/pages?id=easycom)技术，可以免引用、注册，直接使用各种符合规则的vue组件。在代码区键入`u`，拉出各种内置或uni-ui的组件列表，选择其中一个，即可使用该组件。
+
+- npm
+
+  仅支持easycom，uni-ui不支持vue.use()。还需要配置vue.config.js。
+
+  [uni-app官网 (dcloud.net.cn)](https://uniapp.dcloud.net.cn/component/uniui/quickstart.html)
