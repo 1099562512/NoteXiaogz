@@ -16,12 +16,43 @@
 
 ## L.map
 
-- L.map(<String> *id*, <Map options> *options?*)   在一个指定 id 的 div 元素中初始化地图并设置相关参数 
-- L.map(<HTMLElement> *el*, <Map options> *options?*)  在一个 div 实例中初始化地图并设置相关参数 
-
 ### Options
 
+​	主要的配置项如下
+
+```js
+ this.map = L.map('map', {
+     center: [24.490143, 118.036644], //初始化中心位置
+     zoom: 12, //初始缩放等级
+     zoomControl: false, //是否将 zoom 缩放控件添加到地图中, 默认true
+     attributionControl: false, //是否显示版权控件，默认为true
+     layers: [layer], //默认添加到地图上的图层组
+     //closePopupOnClick: true, //是否可以在按住 shift 键的同时拖动鼠标将地图缩放到指定的矩形区域
+     //trackResize: true, //地图是否可以通过双击来放大，以及在按住 shift 的同时双击来缩小。如果设置为 'center'，不管鼠标在哪里，双击缩放都将缩放到视图的中心。
+     //dragging: true, //地图是否可以通过 mouse/touch 进行拖动。
+     //minZoom:  number类型, //地图的最小缩放级别。
+     //maxBounds: LatLngBounds类型, //地图将被限制在指定的地理边界内， 当用户平移将地图拖动到视图以外的范围时会出现弹回的效果
+     //renderer:  renderer类型, //在地图上绘制矢量图层的默认方法，默认为 L.SVG 或 L.Canvas， 这取决于浏览器是否支持。
+
+     //scrollWheelZoom: true, //地图是否允许通过使用鼠标滚轮进行缩放。如果通过'center'，不管鼠标在哪里，都将会放大到视图的中心。
+ })
+```
+
 ### 事件
+
+#### 图层事件
+
+#### 地图状态变更事件
+
+#### Popup弹窗事件
+
+#### Tooltip工具提示事件
+
+#### Location定位相关事件
+
+#### 交互事件
+
+
 
 ### 方法
 
@@ -31,7 +62,7 @@
 
 ​	 扩展 [`L.Layer`](https://leafletjs.cn/reference-1.7.1.html#layer) 的类将继承以下方法: 
 
-![1649562723506](C:\Users\xiaogz\AppData\Roaming\Typora\typora-user-images\1649562723506.png)
+
 
 ### Marker
 

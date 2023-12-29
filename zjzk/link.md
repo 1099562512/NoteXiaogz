@@ -18,6 +18,8 @@ http://150.158.176.73/
 
 ## VPN账号
 
+https://zjvpn.zjky.cn:8080
+
 账号：肖国志
 
 密码：zjky@0414 / 109956Xgz
@@ -133,7 +135,7 @@ PC端：http://81.68.127.3:8800/
 | admin     | zjzkAdmin,123 |
 | dumpAdmin | dumpAdmin,123 |
 
-### 锐明平台
+## 锐明平台
 
 https://autobots.streamax.com/
 
@@ -141,7 +143,7 @@ https://autobots.streamax.com/
 | --------- | ---------- |
 | zjzkadmin | Zjzk!@#123 |
 
-### 方舟示例
+## 方舟示例
 
 http://10.101.16.25:12580/#/login 
 
@@ -156,3 +158,18 @@ http://10.101.16.25:12580/#/login
 |            |            |          |
 |            |            |          |
 
+## DAM数据录入
+
+DAM数据采集系统 
+http://111.52.250.126:9000/#/login
+admin/admin
+
+审批账号： wf3/Bkzy@123
+
+北矿旧数据采集
+https://124.163.248.242:9999
+zjzk/Sxzj2023@.
+
+
+
+[基于再生龙（clonezilla）的Ubuntu镜像的备份和还原_再生龙镜像下载-CSDN博客](https://blog.csdn.net/weixin_58207716/article/details/123841505)
