@@ -139,9 +139,9 @@ PC端：http://81.68.127.3:8800/
 
 https://autobots.streamax.com/
 
-| 账号      | 密码       |
-| --------- | ---------- |
-| zjzkadmin | Zjzk!@#123 |
+| 账号      | 密码     |
+| --------- | -------- |
+| zjzkadmin | Zjky123. |
 
 ## 方舟示例
 
