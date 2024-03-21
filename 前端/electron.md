@@ -498,3 +498,8 @@ contextBridge.exposeInMainWorld('electronApi', {
 2. 进入主屏幕后，判断对不同方向的屏幕播放车载摄像头监控并自动弹出
 3. 当发生前进后退档位切换时，切换播放地址
 
+### ffi-napi
+
+![](D:\code\NodeXiaogz\前端\img\ffi-napi错误.png) 
+
+报错基本就是参数传递错误，应该是形参类型，形参对应的数据类型（比如结构体某个类型定义错了）

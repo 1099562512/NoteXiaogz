@@ -132,7 +132,27 @@ marker.on('move', (event) => {})
 
 ### Layer
 
-# Leaflet-draw
+# 绘制、编辑功能插件
+
+Leaflet-geoman 和 Leaflet-draw 都是 Leaflet.js 的插件，用于在 Leaflet 地图上添加绘图和编辑功能，但它们有一些区别。
+
+1. 功能特性：
+   - Leaflet-geoman：Leaflet-geoman 提供了更多的绘图和编辑功能，包括点、线、多边形、矩形、圆等要素的绘制和编辑。此外，它还提供了高级功能，如吸附、测量距离和面积、坐标转换等。
+   - Leaflet-draw：Leaflet-draw 主要用于绘制简单的点、线、多边形要素，并提供了基本的编辑功能，如平移、修改形状、删除要素等。
+
+2. 插件作者和维护状态：
+   - Leaflet-geoman：Leaflet-geoman 是由 `@geoman-io` 团队维护的，他们致力于为 Leaflet 提供高级的绘图和编辑功能，并持续更新和改进插件。
+   - Leaflet-draw：Leaflet-draw 是由 Leaflet 社区维护的，虽然它是一个成熟的插件，但在最近几年中没有得到大规模的更新和改进。
+
+3. 兼容性：
+   - Leaflet-geoman：Leaflet-geoman 目前已适配最新版本的 Leaflet，并与 Leaflet 1.x.x 版本兼容。
+   - Leaflet-draw：Leaflet-draw 在过去主要适配 Leaflet 0.7.x 版本，尽管也可以在 Leaflet 1.x.x 版本中使用，但可能需要进行一些额外的配置和处理。
+
+总体而言，如果你需要更多高级的绘图和编辑功能，例如绘制矩形、圆形、测量距离和面积等，你可以选择使用 Leaflet-geoman。但如果你只需要基本的绘图和简单的编辑功能，如绘制点、线、多边形等，你可以选择使用 Leaflet-draw。选择插件时，还需考虑插件的兼容性和维护状态。
+
+## Leaflet-draw
+
+> 注意:  使用leaflet 1.9.4 的版本，如果使用leaflet-draw 1.0.3、1.0.4在绘制rectangle的时候会报错，所以目前使用1.0.2版本的leaflet-draw
 
 ​	leaflet地图库的一个插件，赋予了leaflet地图进行绘图和编辑地理要素的功能。用户可以在地图上绘制点、线、多边形等几何要素，并且可以对这些元素进行编辑、删除、和交互操作。
 
@@ -151,9 +171,9 @@ marker.on('move', (event) => {})
    import "leaflet-draw/dist/leaflet.draw.css"
    ```
 
-## L.drawLocal
+### L.drawLocal
 
-​	L.drawLocal 是 Leaflet.draw 插件中用于本地化的对象，用于定义各种语言环境下的文本和标签。通过修改 L.drawLocal 对象中的属性，你可以自定义插件的本地化文本，以适应不同的语言和文化环境。
+​	L.drawLocal 是 Leaflet.draw 插件中用于本地化的对象，用于定义各种语言环境下的文本和标签。通过修改 L.drawLocal 对象中的属性，**你可以自定义插件的本地化文本，以适应不同的语言和文化环境。**
 
 ```js
 // 定义自定义本地化文本
@@ -267,7 +287,7 @@ L.drawLocal.draw.handlers.circle.tooltip.start = '点击并拖动以绘制自定
 L.drawLocal.edit.handlers.edit.tooltip.text = '拖动控制点或标记以自定义编辑要素'; 
 ```
 
-## L.Control.Draw
+### L.Control.Draw
 
 ​	Leaflet.draw插件中创建绘图控件的类。是L.Control的子类继承基类的属性和方法，并添加一下自己的属性和方法：
 
@@ -307,3 +327,21 @@ L.drawLocal.edit.handlers.edit.tooltip.text = '拖动控制点或标记以自定
 
 ### L.Draw.EditToolbar
 
+## Leaflet-geoman
+
+1. 安装leaflet-geoman插件
+
+   ```
+   yarn add @geoman-io/leaflet-geoman-free
+   ```
+
+2. main.js导入
+
+   ```js
+   import L from "leaflet";
+   import "leaflet/dist/leaflet.css"
+   import "leaflet-draw/dist/leaflet.draw.css";
+   
+   import "@geoman-io/leaflet-geoman-free";
+   import "@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css";
+   ```

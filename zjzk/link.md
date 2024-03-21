@@ -173,3 +173,12 @@ zjzk/Sxzj2023@.
 
 
 [基于再生龙（clonezilla）的Ubuntu镜像的备份和还原_再生龙镜像下载-CSDN博客](https://blog.csdn.net/weixin_58207716/article/details/123841505)
+
+
+
+| Pixso      | 地址                                                         | 密码 |
+| ---------- | ------------------------------------------------------------ | ---- |
+| 露天矿平台 | https://pixso.cn/app/prototype/i2EsaBA2jjBZM5b_y_n4YQ?pageId=371%3A49881&frameId=421%3A70136&zm=1.038&lp=0&fi=40&hl=1&sa=0&su=1 | 6or6 |
+|            |                                                              |      |
+|            |                                                              |      |
+
