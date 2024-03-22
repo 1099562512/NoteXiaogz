@@ -503,3 +503,93 @@ contextBridge.exposeInMainWorld('electronApi', {
 ![](D:\code\NodeXiaogz\前端\img\ffi-napi错误.png) 
 
 报错基本就是参数传递错误，应该是形参类型，形参对应的数据类型（比如结构体某个类型定义错了）
+
+```js
+//electron主进程，注意生命周期做的事情， 运行在node
+const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron')
+const { getAllScreen, openWindow } = require('./common/common')
+const path = require('path')
+const ffi = require('ffi-napi')
+const ref = require('ref-napi')
+
+const Int64 = ref.types.int64
+
+const dataSource = 'pzsp://192.168.1.105:7788/live/ld/trans/default/mlinkm/Hunter_SE_0?ndselect=-1&linkmode=8&fstusrd=1&us=1&rcvmd=2&only-video=1'
+  /* const lib = ffi.Library('D:/iLive/libilive_sdk.dll', {
+    'iLiveSDKBridgeFunc': ['void', ['string', 'string']],
+    'iLiveSDKBridgeGetFrame': ['void', ['void *']]
+  })
+  lib.iLiveSDKBridgeFunc('D:\\iLiveLog\\log', dataSource) */
+
+  const lib = ffi.Library('D:/iLive/PIMediaPlayer.dll', {
+    'iLive_Player_global_init': ['void', ['string']],
+    'iLive_Player_create': ['pointer', ['int', 'pointer']],
+    'iLive_Player_set_data_source': ['int', ['void *', 'void *', 'string']],
+    'iLive_Player_set_hwnd': ['int', ['void *', 'void *']],
+    'iLive_Player_prepare_async': ['int', ['void *']],
+    'iLive_Player_start': ['int', ['void *']],
+    'iLive_Player_set_player_op': ['int64', ['void *', 'void *', 'int', 'int', 'void *', 'int', 'void *']]
+  })
+
+  let pointerBuffer = ref.alloc('pointer')
+
+  //iLive_Player全局初始化
+  lib.iLive_Player_global_init('D:\\iLiveLog\\log')
+  pointerBuffer = lib.iLive_Player_create(1, ref.NULL)
+
+  const isSuccess = lib.iLive_Player_set_data_source(pointerBuffer, ref.NULL, dataSource)
+  
+  if(isSuccess == 0) {
+    lib.iLive_Player_set_hwnd(pointerBuffer,ref.NULL)
+    
+    const isPrepare = new Promise((resolve, reject) => {
+      const t = lib.iLive_Player_prepare_async(pointerBuffer)
+      if(t == 0) {
+        resolve('准备好了')
+      }
+    })
+    
+    isPrepare.then(res => {
+      /* const iLive_Player_Video_Callback = ffi.Function(Int64, [
+        'pointer', // void* opaque  
+        'pointer', // void* frame  
+        'int *', // int* size  
+        'int64', // long long stamp  
+        'int', // int picfmt  
+        'int', // int width  
+        'int', // int height  
+        'int' // int index 
+      ],(opaque, frame, sizePtr, stamp, picfmt, width, height, index) => {
+        console.log("1231");
+        console.log(frame);
+      }) */
+      function videoCallback(opaque, frame, sizePtr, stamp, picfmt, width, height, index) {
+        console.log(frame);
+      }
+      const iLive_Player_Video_Callback = ffi.Callback('int64', [
+        'pointer', // void* opaque  
+        'pointer', // void* frame  
+        'int *', // int* size  
+        'int64', // long long stamp  
+        'int', // int picfmt  
+        'int', // int width  
+        'int', // int height  
+        'int' // int index 
+      ], videoCallback)
+
+      lib.iLive_Player_start(pointerBuffer)
+
+      const argBuffer = Buffer.alloc(5 * Int64.size); // 5个int64_t参数，每个占8个字节
+      argBuffer.writeBigInt64LE(BigInt("1"), 0); // 写入回调句柄
+      argBuffer.writeBigInt64LE(BigInt(iLive_Player_Video_Callback.ref().address()), Int64.size); // 写入函数指针
+      argBuffer.writeBigInt64LE(BigInt(0), 2 * Int64.size);
+      argBuffer.writeBigInt64LE(BigInt(0), 3 * Int64.size);
+      argBuffer.writeBigInt64LE(BigInt(0), 4 * Int64.size);
+
+      const res1 = lib.iLive_Player_set_player_op(pointerBuffer, ref.NULL, 215, 4, argBuffer, 0, ref.NULL)
+      console.log(res1 + '成功'); //0成功
+    }) 
+  }
+})
+```
+
