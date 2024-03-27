@@ -123,7 +123,7 @@
   4. App.vue 引入基础样式（注意style标签需声明scss属性支持） 
 
      ```css
-     @import "@/uni_modules/vk-uview-ui/theme.scss";
+     @import "vk-uview-ui/theme.scss";
      ```
 
   5. page.json
@@ -139,7 +139,69 @@
 
 - uni-modules
 
-  对比，npm模式，增加  `./uni_modules/` ，少去第5步。
+  [【开箱即用】uView Vue3 横空出世，继承uView1意志，再战江湖，风云再起！ - DCloud 插件市场](https://ext.dcloud.net.cn/plugin?id=6692)
+  
+  [安装 | uView Vue3.0 横空出世，继承uView1.0意志，再战江湖，风云再起！ (fsq.pub)](https://vkuviewdoc.fsq.pub/components/install.html)
+  
+  1. 从dclound插件市场安装
+  
+  2. mian.js
+  
+     ```js
+     import uView from './uni_modules/vk-uview-ui'
+     app.use(uView)
+     ```
+  
+  3. uni-scss引入
+  
+     ```css
+     @import "@/uni_modules/vk-uview-ui/theme.scss";
+     ```
+  
+  4. App.vue 引入基础样式
+  
+     ```css
+     @import "./uni_modules/vk-uview-ui/index.scss";
+     ```
+
+#### uni-ui
+
+##### uni-modules
+
+1. dclound插件市场下载引入至uni-modules，uni-ui里面的组件都是分开的可以从插件市场单独下载，如果想全部引入就下载uni-ui。**不需要引用、注册，直接在页面中使用 `uni-ui` 组件。**
+
+##### npm + easycom
+
+1. 安装uni-ui
+
+   ```
+   npm i @dcloudio/uni-ui
+   ```
+
+2. 安装sass和sass-loader，如果使用Hbuilder有装插件可以省略此步骤。
+
+   ```
+    npm i sass sass-loader@10.1.1 -D
+   ```
+
+3. 设置easycom
+
+   ```json
+   "easycom": {
+   	"autoscan": true,
+       "custom": {
+      	 	"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+       }
+   }
+   ```
+
+4. 使用easycom后可以直接引入而不需要引入
+
+   ```
+   <uni-badge class="uni-badge-left-margin" text="2" type="primary" />
+   ```
+
+   
 
 #### uni-ui
 
