@@ -238,6 +238,101 @@ ctx.rotate((90 * 2 * Math.PI) / 360)
 
 ##### transform变形
 
+### imageData（.PGM处理）
+
+需求：处理pgm格式数据，按比例缩小适应屏幕， 原pgm的大小是2076x2013的
+
+1、这个是直接对imageData像素操作，有时候scale=1/2时缩放没问题，但是scale=0.4的就会出现混乱。
+
+```js
+function scaleImageData(imageData, scale) {
+    const width = imageData.width * scale;
+    const height = imageData.height * scale;
+    const scaledData = ctx.createImageData(width, height);
+
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const sourceX = Math.round(x / scale);
+            const sourceY = Math.round(y / scale);
+            const index = (y * width + x) * 4;
+            const sourceIndex = (sourceY * imageData.width + sourceX) * 4;
+
+            scaledData.data[index] = imageData.data[sourceIndex];
+            scaledData.data[index + 1] = imageData.data[sourceIndex + 1];
+            scaledData.data[index + 2] = imageData.data[sourceIndex + 2];
+            scaledData.data[index + 3] = imageData.data[sourceIndex + 3];
+        }
+    }
+
+    return scaledData;
+}
+```
+
+2、pgm ---> imageData ---> 临时的ctx，获取到img的URL ---> image ----> 通过drawImage可以指定图片大小进行缩放。
+
+```js
+ const containter = document.querySelector('.canvas-container')
+ window.electronApi.getPgmData().then(pgmInfo => {
+     const { width, height, data} = pgmInfo
+     const ratio = width / height
+
+     const targetHeight = containter.clientHeight; //目标大小，适应屏幕
+     const targetWidth = ratio * targetHeight
+
+     const pgmCanvas = document.querySelector('#pgm-canvas')
+     pgmCanvas.width = targetWidth
+     pgmCanvas.height = targetHeight
+     const ctx = pgmCanvas.getContext('2d')
+
+     let imageData = ctx.createImageData(width, height)
+     //将pgm的颜色值，设置R、G、B分量都为同一个值
+     //pgm一个字节代表一个颜色，imageData 4个字节代表颜色分别是
+     for(let i=0, len = data.length; i < len; i++) {
+         const initI = (i*3) + i
+         //灰色
+         if(data[i] == 205) {
+             imageData.data[initI] = 0
+             imageData.data[initI+1] = 0
+             imageData.data[initI+2] = 0
+             imageData.data[initI+3] = 255
+         } else if(data[i] == 254) {  //过道设置透明
+             imageData.data[initI] = 0
+             imageData.data[initI+1] = 0
+             imageData.data[initI+2] = 0
+             imageData.data[initI+3] = 0
+         } else {                     //过道边缘，根据需求设置颜色，原颜色就是data[i]
+             imageData.data[initI] = 18
+             imageData.data[initI+1] = 200
+             imageData.data[initI+2] = 200
+             imageData.data[initI+3] = 255
+         }
+     }
+     //console.log(imageData);
+     //进行屏幕适应处理
+     // console.log(targetHeight/height);
+
+     const tempCanvas = document.createElement('canvas');
+     const tempCtx = tempCanvas.getContext('2d');
+
+     // 将 ImageData 绘制到临时画布上
+     tempCanvas.width = imageData.width;
+     tempCanvas.height = imageData.height;
+     tempCtx.putImageData(imageData, 0, 0);
+
+     // 将绘制好的图像数据转为 Data URL
+     const img = new Image()
+     img.src = tempCanvas.toDataURL();
+     img.onload = () => {
+         /* img.width = targetWidth
+            img.height = targetHeight */
+         //console.log(img);
+         ctx.drawImage(img, 0,0, targetWidth,targetHeight)
+     }
+ })
+```
+
+
+
 ### 给canvas绘制对象添加鼠标事件
 
 - 通过给canvas监听鼠标事件，获得鼠标在canvas上的坐标
